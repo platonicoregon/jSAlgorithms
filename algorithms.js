@@ -35,3 +35,30 @@ function titleCase(str) {
 console.log(titleCase("I'm a little tea pot"));
 console.log(titleCase("sHoRt AnD sToUt"));
 console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"));
+
+
+//Arithmetic mean of Array of numbers
+
+function arithmeticMean(arr) {
+	var result = 0,
+		i;
+	for(i = 0; i < arr.length; result += arr[i], i += 1) {}
+	return result / arr.length;
+}
+
+console.log(arithmeticMean([12, 15, 20, 25, 59, 79]));
+
+
+//Square root of positive numbers in Array
+
+function sqrOfPositivNum(arr) {
+	var i;
+	for(i = 0; i < arr.length; arr[i] = Math.sqrt(arr[i]), i += 1) {
+		if(arr[i] < 0) {
+			arr.splice(i, 1);
+		}
+	}
+	return arr;
+}
+
+console.log(sqrOfPositivNum([-9, 9, 12, 14, -100, 100, 90, 16, -4, 8, 36, 81]));
