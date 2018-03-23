@@ -1,64 +1,76 @@
-// Find the Longest Word in a String
+// Return Largest Numbers in Arrays
 
-function findLongestWord(str) {
-	var i,
-		arrOfStr = str.split(" ");
-	for(i = 0, str = arrOfStr[0]; i < arrOfStr.length; i += 1) {
-		if(str.length < arrOfStr[i].length) {
-			str = arrOfStr[i];
-		}
-	}
-	return str.length;
-}
-
-console.log(findLongestWord("The quick brown fox jumped over the lazy dog"));
-console.log(findLongestWord("May the force be with you"));
-console.log(findLongestWord("Google do a barrel roll"));
-console.log(findLongestWord("What is the average airspeed velocity of an unladen swallow"));
-console.log(findLongestWord("What if we try a super-long word such as otorhinolaryngology"));
-
-
-//Title Case a Sentence
-
-function titleCase(str) {
+function largestOfFour(arr) {
 	var i,
 		j,
-		arrOfStr = str.split(" ");
-	for(i = 0; i < arrOfStr.length; arrOfStr[i] = arrOfStr[i].join(""), i += 1) {
-		arrOfStr[i] = arrOfStr[i].split("");
-		arrOfStr[i][0] = arrOfStr[i][0].toUpperCase();
-		for(j = 1; j < arrOfStr[i].length; arrOfStr[i][j] = arrOfStr[i][j].toLowerCase(), j += 1) {}
-	}
-	return arrOfStr.join(" ");
-}
+		largestNum = -Infinity,
+		arrOfLargestNums = [];
 
-console.log(titleCase("I'm a little tea pot"));
-console.log(titleCase("sHoRt AnD sToUt"));
-console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"));
-
-
-//Arithmetic mean of Array of numbers
-
-function arithmeticMean(arr) {
-	var result = 0,
-		i;
-	for(i = 0; i < arr.length; result += arr[i], i += 1) {}
-	return result / arr.length;
-}
-
-console.log(arithmeticMean([12, 15, 20, 25, 59, 79]));
-
-
-//Square root of positive numbers in Array
-
-function sqrOfPositivNum(arr) {
-	var i;
-	for(i = 0; i < arr.length; arr[i] = Math.sqrt(arr[i]), i += 1) {
-		if(arr[i] < 0) {
-			arr.splice(i, 1);
+	for(i = 0; i < arr.length; largestNum = -Infinity, i += 1) {
+		for(j = 0; j < arr[i].length; j += 1) {
+			if(arr[i][j] > largestNum) {
+				largestNum = arr[i][j];
+			}
 		}
+		arrOfLargestNums.push(largestNum);
 	}
-	return arr;
+	return arrOfLargestNums;
 }
 
-console.log(sqrOfPositivNum([-9, 9, 12, 14, -100, 100, 90, 16, -4, 8, 36, 81]));
+console.log(largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]));
+console.log(largestOfFour([[4, 9, 1, 3], [13, 35, 18, 26], [32, 35, 97, 39], [1000000, 1001, 857, 1]]));
+
+
+//Confirm the Ending
+
+function confirmEnding(str, target) {
+	return target === str.substring(str.length - target.length);
+}
+
+console.log(confirmEnding("Bastian", "n"));
+console.log(confirmEnding("Connor", "n"));
+console.log(confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification"));
+console.log(confirmEnding("He has to give me a new name", "name"));
+console.log(confirmEnding("Open sesame", "same"));
+console.log(confirmEnding("Open sesame", "pen"));
+console.log(confirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain"));
+
+
+//Function counting itself in code
+
+function countingItself() {
+	var count = 0;
+	return function() {
+		console.log(count += 1);
+	};
+}
+
+var func = countingItself();
+
+func();
+func();
+func();
+func();
+
+
+//Fibonacci numbers
+
+function fibonacciNumbs() {
+	var i,
+		firstFibNum = 0,
+		secondFibNum = 1,
+		nextFibNum,
+		arrOfFibNumbs = [],
+		iterationCounter = 0;
+	for(i = 1; i <= 10; i += 1) {
+		arrOfFibNumbs.push(firstFibNum);
+		nextFibNum = secondFibNum + firstFibNum;
+		firstFibNum = secondFibNum;
+		secondFibNum = nextFibNum;
+		iterationCounter += 1;
+	}
+	console.log("Проведено " + iterationCounter + " итераций");
+	return arrOfFibNumbs;
+}
+
+console.log(fibonacciNumbs());
