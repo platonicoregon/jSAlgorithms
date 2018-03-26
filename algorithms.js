@@ -1,76 +1,80 @@
-// Return Largest Numbers in Arrays
+//Repeat a string repeat a string
 
-function largestOfFour(arr) {
+function repeatStringNumTimes(str, num) {
 	var i,
-		j,
-		largestNum = -Infinity,
-		arrOfLargestNums = [];
-
-	for(i = 0; i < arr.length; largestNum = -Infinity, i += 1) {
-		for(j = 0; j < arr[i].length; j += 1) {
-			if(arr[i][j] > largestNum) {
-				largestNum = arr[i][j];
-			}
-		}
-		arrOfLargestNums.push(largestNum);
+		newStr = "";
+	for (i = 0; i < num; i += 1) {
+		newStr += str;
 	}
-	return arrOfLargestNums;
+	return newStr;
 }
 
-console.log(largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]));
-console.log(largestOfFour([[4, 9, 1, 3], [13, 35, 18, 26], [32, 35, 97, 39], [1000000, 1001, 857, 1]]));
+console.log(repeatStringNumTimes("*", 3));
+console.log(repeatStringNumTimes("abc", 3));
+console.log(repeatStringNumTimes("abc", 4));
+console.log(repeatStringNumTimes("abc", 1));
+console.log(repeatStringNumTimes("*", 8));
+console.log(repeatStringNumTimes("abc", -2));
 
 
-//Confirm the Ending
+//Truncate a string
 
-function confirmEnding(str, target) {
-	return target === str.substring(str.length - target.length);
-}
-
-console.log(confirmEnding("Bastian", "n"));
-console.log(confirmEnding("Connor", "n"));
-console.log(confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification"));
-console.log(confirmEnding("He has to give me a new name", "name"));
-console.log(confirmEnding("Open sesame", "same"));
-console.log(confirmEnding("Open sesame", "pen"));
-console.log(confirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain"));
-
-
-//Function counting itself in code
-
-function countingItself() {
-	var count = 0;
-	return function() {
-		console.log(count += 1);
-	};
-}
-
-var func = countingItself();
-
-func();
-func();
-func();
-func();
-
-
-//Fibonacci numbers
-
-function fibonacciNumbs() {
-	var i,
-		firstFibNum = 0,
-		secondFibNum = 1,
-		nextFibNum,
-		arrOfFibNumbs = [],
-		iterationCounter = 0;
-	for(i = 1; i <= 10; i += 1) {
-		arrOfFibNumbs.push(firstFibNum);
-		nextFibNum = secondFibNum + firstFibNum;
-		firstFibNum = secondFibNum;
-		secondFibNum = nextFibNum;
-		iterationCounter += 1;
+function truncateString(str, num) {
+	var ending = "...";
+	switch(true) {
+		case str.length > num && num <= 3: str = str.slice(0, num) + ending; break;
+		case str.length > num: str = str.slice(0, num - 3) + ending; break;
 	}
-	console.log("Проведено " + iterationCounter + " итераций");
-	return arrOfFibNumbs;
+	return str;
 }
 
-console.log(fibonacciNumbs());
+console.log(truncateString("A-tisket a-tasket A green and yellow basket", 11));
+console.log(truncateString("Peter Piper picked a peck of pickled peppers", 14));
+console.log(truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length));
+console.log(truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2));
+console.log(truncateString("A-", 1));
+console.log(truncateString("Absolutely Longer", 2));
+
+
+//Create Ul of Array elements
+
+function addArrElemInUl(arr) {
+	var ul = document.createElement("ul"),
+		li = [],
+		i;
+	for(i = 0; i < arr.length; i += 1) {
+		li[i] = ul.appendChild(document.createElement("li"));
+		li[i].innerText = arr[i];
+	}
+	document.body.appendChild(ul);
+}
+
+addArrElemInUl([8, 7, 6, 5, 4, 3, 2, 1]);
+
+
+//Cloning input
+
+var input = document.body.appendChild(document.createElement("input")),
+	button = document.body.appendChild(document.createElement("button"));
+
+button.innerText = "<---Clone this input";
+
+button.onclick = function() {
+	var inputClone = input.cloneNode(true);
+	document.body.appendChild(inputClone);
+}
+
+
+//Checking Array for Negative Elements
+
+function isThereNegativeElem(arr) {
+	return arr.some(function(element){
+		return element < 0;
+	});
+}
+
+console.log(isThereNegativeElem([12, 4, 9, 7, 8]));
+console.log(isThereNegativeElem([97, 7, -3, -12, 56]));
+console.log(isThereNegativeElem([1, 2, 3, 4, 5, 6, 7]));
+console.log(isThereNegativeElem([-45, 56, -12, 78]));
+console.log(isThereNegativeElem([30, 45, 89, 7, -3]));
