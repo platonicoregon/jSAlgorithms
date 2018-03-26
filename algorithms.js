@@ -1,12 +1,7 @@
 //Repeat a string repeat a string
 
 function repeatStringNumTimes(str, num) {
-	var i,
-		newStr = "";
-	for (i = 0; i < num; i += 1) {
-		newStr += str;
-	}
-	return newStr;
+	return num >= 0 ? str.repeat(num) : "";
 }
 
 console.log(repeatStringNumTimes("*", 3));
