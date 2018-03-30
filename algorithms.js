@@ -1,75 +1,95 @@
-//Repeat a string repeat a string
+//Chunky Monkey
 
-function repeatStringNumTimes(str, num) {
-	return num >= 0 ? str.repeat(num) : "";
-}
+function chunkArrayInGroups(arr, size) {
+	var i,
+		newArr = [];
 
-console.log(repeatStringNumTimes("*", 3));
-console.log(repeatStringNumTimes("abc", 3));
-console.log(repeatStringNumTimes("abc", 4));
-console.log(repeatStringNumTimes("abc", 1));
-console.log(repeatStringNumTimes("*", 8));
-console.log(repeatStringNumTimes("abc", -2));
-
-
-//Truncate a string
-
-function truncateString(str, num) {
-	var ending = "...";
-	switch(true) {
-		case str.length > num && num <= 3: str = str.slice(0, num) + ending; break;
-		case str.length > num: str = str.slice(0, num - 3) + ending; break;
+	for (i = 0; i < arr.length / size; i += 1) {
+		newArr.push(arr.slice(i * size, (i + 1) * size));
 	}
-	return str;
+
+	return newArr;
 }
 
-console.log(truncateString("A-tisket a-tasket A green and yellow basket", 11));
-console.log(truncateString("Peter Piper picked a peck of pickled peppers", 14));
-console.log(truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length));
-console.log(truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2));
-console.log(truncateString("A-", 1));
-console.log(truncateString("Absolutely Longer", 2));
+console.log(chunkArrayInGroups(["a", "b", "c", "d"], 2));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5], 4));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4));
+console.log(chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2));
 
 
-//Create Ul of Array elements
+//Slasher Flick
 
-function addArrElemInUl(arr) {
-	var ul = document.createElement("ul"),
-		li = [],
-		i;
-	for(i = 0; i < arr.length; i += 1) {
-		li[i] = ul.appendChild(document.createElement("li"));
-		li[i].innerText = arr[i];
-	}
-	document.body.appendChild(ul);
+function slasher(arr, howMany) {
+	return arr.slice(howMany);
 }
 
-addArrElemInUl([8, 7, 6, 5, 4, 3, 2, 1]);
+console.log(slasher([1, 2, 3], 2));
+console.log(slasher([1, 2, 3], 0));
+console.log(slasher([1, 2, 3], 9));
+console.log(slasher([1, 2, 3], 4));
+console.log(slasher(["burgers", "fries", "shake"], 1));
+console.log(slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5));
 
 
-//Cloning input
+//Add "li" to "ul" and "!" to "li"
 
-var input = document.body.appendChild(document.createElement("input")),
-	button = document.body.appendChild(document.createElement("button"));
+var ul = document.body.appendChild(document.createElement("ul")),
+	button = document.body.appendChild(document.createElement("button")),
+	li = [],
+	i;
 
-button.innerText = "<---Clone this input";
+button.innerText = "Добавить пункт";
+
+for(i = 0; i < 5; i += 1) {
+	li[i] = ul.appendChild(document.createElement("li"));
+	li[i].innerText = "Пункт";
+}
 
 button.onclick = function() {
-	var inputClone = input.cloneNode(true);
-	document.body.appendChild(inputClone);
+	li[i] = ul.appendChild(document.createElement("li"));
+	li[i].innerText = "Пункт";
+	i += 1;
+};
+
+ul.addEventListener("click", function(e) {
+	if(e.target.tagName === "LI"){
+		e.target.innerText += "!";
+	}
+});
+
+
+//Checking array for two same elements in a row
+
+function isThereTwoSameInARow(arr) {
+	return arr.some(function (elem, index, array) {return elem === array[index + 1];}) === true ? "Yes" : "No";
 }
 
+console.log(isThereTwoSameInARow([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+console.log(isThereTwoSameInARow([16, 24, 100, 100, 10]));
+console.log(isThereTwoSameInARow([3, 6, 9, 7, 4 ,1]));
+console.log(isThereTwoSameInARow([7, 5, 1, 1, 9]));
+console.log(isThereTwoSameInARow([12, 6, 9, 7, 45]));
 
-//Checking Array for Negative Elements
 
-function isThereNegativeElem(arr) {
-	return arr.some(function(element){
-		return element < 0;
-	});
+//Counting sum of digits
+
+function getDigitsSum(digit) {
+	var sum = 0,
+		i,
+		arrOfDigits = digit.toString().split("");
+
+	for(i = 0; i < arrOfDigits.length; i += 1) {
+		sum += +arrOfDigits[i];
+	}
+
+	return sum;
 }
 
-console.log(isThereNegativeElem([12, 4, 9, 7, 8]));
-console.log(isThereNegativeElem([97, 7, -3, -12, 56]));
-console.log(isThereNegativeElem([1, 2, 3, 4, 5, 6, 7]));
-console.log(isThereNegativeElem([-45, 56, -12, 78]));
-console.log(isThereNegativeElem([30, 45, 89, 7, -3]));
+console.log(getDigitsSum(6427));
+console.log(getDigitsSum(1234));
+console.log(getDigitsSum(5213));
+console.log(getDigitsSum(7412));
+console.log(getDigitsSum(65));
