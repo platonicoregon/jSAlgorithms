@@ -1,55 +1,60 @@
-//Mutations
+//Seek and Destroy
 
-function mutation(arr) {
+function destroyer(arr) {
 	var i,
-		result = true;
-	for (i = 0; i < arr[1].length; i += 1) {
-		if (arr[0].toLowerCase().indexOf(arr[1][i].toLowerCase()) === -1) {
-			result = false;
-		}
+		arrOfArgs = [];
+
+	for(i = 1; i < arguments.length; i += 1) {
+		arrOfArgs.push(arguments[i]);
 	}
-	return result;
-}
 
-console.log(mutation(["hello", "hey"]));
-console.log(mutation(["hello", "Hello"]));
-console.log(mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"]));
-console.log(mutation(["Mary", "Army"]));
-console.log(mutation(["Mary", "Aarmy"]));
-console.log(mutation(["Alien", "line"]));
-console.log(mutation(["floor", "for"]));
-console.log(mutation(["hello", "neo"]));
-console.log(mutation(["voodoo", "no"]));
-
-
-//Falsy Bouncer
-
-function bouncer(arr) {
 	return arr.filter(function (elem) {
-		return Boolean(elem);
+		return !arrOfArgs.includes(elem);
 	});
 }
 
-console.log(bouncer([7, "ate", "", false, 9]));
-console.log(bouncer(["a", "b", "c"]));
-console.log(bouncer([false, null, 0, NaN, undefined, ""]));
-console.log(bouncer([1, null, NaN, 2, undefined]));
+console.log(destroyer([1, 2, 3, 1, 2, 3], 2, 3));
+console.log(destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3));
+console.log(destroyer([3, 5, 1, 2, 2], 2, 3, 5));
+console.log(destroyer([2, 3, 2, 3], 2, 3));
+console.log(destroyer(["tree", "hamburger", 53], "tree", 53));
 
 
-//Everything Be True
+//Where do I belong
 
-function truthCheck(collection, pre) {
-	return collection.every(function (elem) {
-		return Boolean(elem[pre]);
-	});
+function getIndexToIns(arr, num) {
+	arr.push(num);
+	return arr.sort(function (a, b) {
+		return a - b;
+	}).indexOf(num);
 }
 
-console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex"));
-console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex"));
-console.log(truthCheck([{"user": "Tinky-Winky", "sex": "male", "age": 0}, {"user": "Dipsy", "sex": "male", "age": 3}, {"user": "Laa-Laa", "sex": "female", "age": 5}, {"user": "Po", "sex": "female", "age": 4}], "age"));
-console.log(truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true}, {"name": "FastFoward", "onBoat": null}], "onBoat"));
-console.log(truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true, "alias": "Repete"}, {"name": "FastFoward", "onBoat": true}], "onBoat"));
-console.log(truthCheck([{"single": "yes"}], "single"));
-console.log(truthCheck([{"single": ""}, {"single": "double"}], "single"));
-console.log(truthCheck([{"single": "double"}, {"single": undefined}], "single"));
-console.log(truthCheck([{"single": "double"}, {"single": NaN}], "single"));
+console.log(getIndexToIns([40, 60], 50));
+console.log(getIndexToIns([10, 20, 30, 40, 50], 30));
+console.log(getIndexToIns([10, 20, 30, 40, 50], 35));
+console.log(getIndexToIns([3, 10, 5], 3));
+console.log(getIndexToIns([5, 3, 20, 3], 5));
+console.log(getIndexToIns([2, 20, 10], 19));
+console.log(getIndexToIns([2, 5, 10], 15));
+
+
+//Sum All Numbers in a Range
+
+function sumAll(arr) {
+	var i,
+		sum = 0;
+	arr = arr.sort(function (a, b) {
+		return a - b;
+	});
+
+	for (i = arr[0]; i <= arr[1]; i += 1) {
+		sum += i;
+	}
+
+	return sum;
+}
+
+console.log(sumAll([1, 4]));
+console.log(sumAll([4, 1]));
+console.log(sumAll([5, 10]));
+console.log(sumAll([10, 5]));
