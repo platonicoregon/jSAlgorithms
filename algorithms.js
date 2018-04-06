@@ -1,12 +1,7 @@
 //Seek and Destroy
 
 function destroyer(arr) {
-	var i,
-		arrOfArgs = [];
-
-	for(i = 1; i < arguments.length; i += 1) {
-		arrOfArgs.push(arguments[i]);
-	}
+	var arrOfArgs = Array.prototype.slice.call(arguments);
 
 	return arr.filter(function (elem) {
 		return !arrOfArgs.includes(elem);
