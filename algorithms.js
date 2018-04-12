@@ -1,55 +1,56 @@
-//Seek and Destroy
+//Sorted Union
 
-function destroyer(arr) {
-	var arrOfArgs = Array.prototype.slice.call(arguments);
+function uniteUnique(arr) {
+	var arrOfArgs = Array.prototype.slice.call(arguments).reduce(function (a, b) {
+			return a.concat(b);
+		}),
+		uniqueArr = [];
 
-	return arr.filter(function (elem) {
-		return !arrOfArgs.includes(elem);
+	return arrOfArgs.filter(function (elem) {
+		if (uniqueArr.includes(elem)) {
+			return false;
+		}
+		else {
+			uniqueArr.push(elem);
+			return elem;
+		}
 	});
 }
 
-console.log(destroyer([1, 2, 3, 1, 2, 3], 2, 3));
-console.log(destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3));
-console.log(destroyer([3, 5, 1, 2, 2], 2, 3, 5));
-console.log(destroyer([2, 3, 2, 3], 2, 3));
-console.log(destroyer(["tree", "hamburger", 53], "tree", 53));
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+console.log(uniteUnique([1, 3, 2], [1, [5]], [2, [4]]));
+console.log(uniteUnique([1, 2, 3], [5, 2, 1]));
+console.log(uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]));
 
 
-//Where do I belong
+//Binary Agents
 
-function getIndexToIns(arr, num) {
-	arr.push(num);
-	return arr.sort(function (a, b) {
-		return a - b;
-	}).indexOf(num);
-}
-
-console.log(getIndexToIns([40, 60], 50));
-console.log(getIndexToIns([10, 20, 30, 40, 50], 30));
-console.log(getIndexToIns([10, 20, 30, 40, 50], 35));
-console.log(getIndexToIns([3, 10, 5], 3));
-console.log(getIndexToIns([5, 3, 20, 3], 5));
-console.log(getIndexToIns([2, 20, 10], 19));
-console.log(getIndexToIns([2, 5, 10], 15));
-
-
-//Sum All Numbers in a Range
-
-function sumAll(arr) {
-	var i,
-		sum = 0;
-	arr = arr.sort(function (a, b) {
-		return a - b;
+function binaryAgent(str) {
+	var arrOfUnicodeNumbs = str.split(" ").map(function (elem) {
+		return parseInt(elem, 2);
 	});
 
-	for (i = arr[0]; i <= arr[1]; i += 1) {
-		sum += i;
-	}
-
-	return sum;
+	return arrOfUnicodeNumbs.map(function (elem) {
+		return String.fromCharCode(elem);
+	}).join("");
 }
 
-console.log(sumAll([1, 4]));
-console.log(sumAll([4, 1]));
-console.log(sumAll([5, 10]));
-console.log(sumAll([10, 5]));
+console.log(binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"));
+console.log(binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001"));
+
+
+//Diff Two Arrays
+
+function diffArray(arr1, arr2) {
+	var newArr = arr1.concat(arr2);
+	return newArr.filter(function (elem) {
+		return !arr1.includes(elem) || !arr2.includes(elem);
+	});
+}
+
+console.log(diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]));
+console.log(diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]));
+console.log(diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]));
+console.log(diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]));
+console.log(diffArray([], ["snuffleupagus", "cookie monster", "elmo"]));
+console.log(diffArray([1, "calf", 3, "piglet"], [7, "filly"]));
